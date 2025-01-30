@@ -22,7 +22,7 @@ if(
 ){
     throw new ApiError(400,"All fields are required")
  }
-const existedUser=User.findOne({
+const existedUser=await User.findOne({
     $or:[{username},{email}]
 })
 if(existedUser){
@@ -35,6 +35,7 @@ const coverImagelocalpath=req.files?.coverImage[0]?.path;
 if(!avatarLocalpath){
     throw new ApiError(400,"Avatar is required")
 }
+console.log(req.files)
 //upload cloudinary
 const avatar=await uploadOncludinary(avatarLocalpath);
 const coverImage=await uploadOncludinary(coverImagelocalpath);
